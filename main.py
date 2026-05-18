@@ -16,10 +16,10 @@ YELLOW = (50, 40, 0)    # 보통
 RED    = (50, 0, 0)     # 위험
 OFF    = (0, 0, 0)
 
-# ===== 임계값 설정 (환경에 맞게 조정) =====
-THRESHOLD_LOW = 15000   # 이 값 이하: 공기 양호
-THRESHOLD_HIGH = 35000  # 이 값 이상: 위험
-SENSOR_MAX = 50000      # 게이지 최대값 기준
+# ===== 임계값 설정 (더 민감하게 조정!) =====
+THRESHOLD_LOW = 8000    # 이 값 이하: 공기 양호
+THRESHOLD_HIGH = 20000  # 이 값 이상: 위험
+SENSOR_MAX = 30000      # 게이지 최대값 기준
 
 # ===== LED 전체 끄기 =====
 def clear_leds():
@@ -45,12 +45,12 @@ def blink_warning(count, color, times=3):
         time.sleep(0.3)
     show_gauge(count, color)
 
-# ===== 센서 예열 =====
-print("MQ-2 센서 예열 중... (20초)")
+# ===== 센서 예열 (5초로 단축) =====
+print("MQ-2 센서 예열 중... (5초)")
 clear_leds()
-for i in range(20, 0, -1):
-    # 예열 중에는 파란색으로 천천히 채우기
-    fill_count = int((20 - i) / 2) + 1
+for i in range(5, 0, -1):
+    # 예열 진행 상황을 파란색으로 표시
+    fill_count = (5 - i) * 2 + 2
     for j in range(NUM_LEDS):
         if j < fill_count:
             led[j] = (0, 0, 30)
